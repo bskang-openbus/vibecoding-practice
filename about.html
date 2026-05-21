@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>홍길동 — 自己紹介 / Profile №001</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;700;900&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #0a0d14;
+      --bg-2: #11151f;
+      --ink: #ede4d3;
+      --ink-2: #cfc4ad;
+      --ink-dim: #7d7461;
+      --gold: #d4a574;
+      --gold-bright: #f1c894;
+      --blue: #6ab7ff;
+      --orange: #ff5b3a;
+      --border: rgba(237, 228, 211, 0.12);
+      --border-strong: rgba(237, 228, 211, 0.28);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Fraunces', 'Noto Serif KR', serif;
+      font-variation-settings: 'opsz' 24;
+      line-height: 1.55;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── BACKGROUND LAYERS ─────────────────────────────── */
+    .bg-mesh {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 18%, rgba(212, 165, 116, 0.22), transparent 65%),
+        radial-gradient(ellipse 50% 55% at 88% 78%, rgba(106, 183, 255, 0.14), transparent 65%),
+        radial-gradient(ellipse 35% 28% at 72% 28%, rgba(255, 91, 58, 0.10), transparent 65%),
+        radial-gradient(ellipse 60% 40% at 30% 90%, rgba(212, 165, 116, 0.08), transparent 65%);
+      animation: mesh 28s ease-in-out infinite alternate;
+    }
+
+    @keyframes mesh {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(2.5%, -2%, 0) scale(1.08); }
+    }
+
+    .bg-grain {
+      position: fixed; inset: -50%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.32;
+      mix-blend-mode: overlay;
+    }
+
+    /* fine constellation lines */
+    .bg-grid {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(237, 228, 211, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(237, 228, 211, 0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+
+    /* vignette */
+    .bg-vignette {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 13, 20, 0.6) 100%);
+    }
+
+    /* ─── STAGE ─────────────────────────────────────────── */
+    .stage {
+      position: relative;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 56px 64px;
+    }
+
+    /* ─── TOP STRIP ─────────────────────────────────────── */
+    .strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 0 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    .strip-l, .strip-r {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .strip .crest {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 0 rgba(255, 91, 58, 0.6);
+      animation: pulse 2s infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(255, 91, 58, 0.6); }
+      70%  { box-shadow: 0 0 0 10px rgba(255, 91, 58, 0); }
+      100% { box-shadow: 0 0 0 0   rgba(255, 91, 58, 0); }
+    }
+
+    /* ─── HERO ──────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 64px;
+      align-items: end;
+      padding: 96px 0 64px;
+    }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 900;
+      font-size: clamp(4.5rem, 13vw, 12rem);
+      line-height: 0.86;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .hero-name .gilo {
+      display: inline-block;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold) 50%, #a67e4d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144, 'wght' 500;
+      transform: translateY(0.06em);
+    }
+
+    .hero-en {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-variation-settings: 'opsz' 144, 'wght' 300;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      letter-spacing: 0.02em;
+      color: var(--ink-2);
+      margin-bottom: 36px;
+      opacity: 0.85;
+    }
+
+    .hero-en::before {
+      content: '— ';
+      color: var(--gold);
+    }
+
+    .hero-tagline {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 400;
+      font-size: 1.15rem;
+      line-height: 1.55;
+      color: var(--ink);
+      max-width: 34ch;
+      padding-left: 20px;
+      border-left: 2px solid var(--gold);
+    }
+
+    .hero-side {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      line-height: 2.1;
+      letter-spacing: 0.06em;
+      color: var(--ink-dim);
+      padding-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero-side .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px dashed var(--border);
+      padding: 6px 0;
+    }
+
+    .hero-side .row span:first-child { color: var(--gold); }
+    .hero-side .row span:last-child  { color: var(--ink-2); }
+
+    /* corner ornaments */
+    .corner {
+      position: absolute;
+      width: 38px; height: 38px;
+      border: 1px solid var(--gold);
+      opacity: 0.6;
+    }
+    .corner.tl { top: 72px; left: -20px; border-right: 0; border-bottom: 0; }
+    .corner.br { right: -20px; bottom: 32px; border-left: 0; border-top: 0; }
+
+    /* ─── MARQUEE ───────────────────────────────────────── */
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--border-strong);
+      padding: 22px 0;
+      margin: 24px -56px 96px;
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: scroll 44s linear infinite;
+    }
+
+    .marquee span {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-variation-settings: 'opsz' 144, 'wght' 400;
+      font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+      color: var(--ink);
+      padding: 0 28px;
+    }
+
+    .marquee .star {
+      color: var(--gold);
+      font-style: normal;
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144, 'wght' 700;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────── */
+    .section {
+      margin-bottom: 112px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding-bottom: 24px;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head h2 {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144, 'wght' 500;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+
+    .section-head h2 em {
+      font-style: italic;
+      font-variation-settings: 'opsz' 144, 'wght' 400;
+      color: var(--gold);
+    }
+
+    .section-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      text-align: right;
+      line-height: 1.9;
+      min-width: 140px;
+    }
+
+    .section-meta strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ─── INTERESTS ─────────────────────────────────────── */
+    .interests {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .interest {
+      position: relative;
+      padding: 28px 26px 32px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(237, 228, 211, 0.025), rgba(237, 228, 211, 0));
+      overflow: hidden;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.5s,
+                  background 0.5s;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .interest::before {
+      content: attr(data-num);
+      position: absolute;
+      top: 22px; right: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      color: var(--ink-dim);
+      transition: color 0.4s;
+    }
+
+    .interest::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 0%, rgba(212, 165, 116, 0.22), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.6s;
+      pointer-events: none;
+    }
+
+    .interest:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      background: linear-gradient(180deg, rgba(212, 165, 116, 0.06), rgba(237, 228, 211, 0));
+    }
+
+    .interest:hover::after { opacity: 1; }
+    .interest:hover::before { color: var(--gold); }
+
+    .interest .ko {
+      margin-top: 60px;
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 900;
+      font-size: 1.85rem;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .interest .en {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-variation-settings: 'opsz' 60, 'wght' 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      color: var(--gold);
+      margin-bottom: 22px;
+    }
+
+    .interest p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--ink-2);
+      opacity: 0.78;
+      margin-top: auto;
+    }
+
+    /* ─── CONTACT ───────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .contact-link {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144, 'wght' 500;
+      font-style: italic;
+      font-size: clamp(2rem, 5.5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      transition: color 0.4s;
+      word-break: break-word;
+    }
+
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -8px;
+      width: 100%; height: 2px;
+      background: var(--gold);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .contact-link:hover { color: var(--gold-bright); }
+    .contact-link:hover::after { transform: scaleX(1); }
+
+    .contact-arrow {
+      display: inline-block;
+      margin-right: 16px;
+      color: var(--gold);
+      font-style: normal;
+      font-variation-settings: 'opsz' 144, 'wght' 300;
+      transition: transform 0.4s;
+    }
+
+    .contact-link:hover .contact-arrow {
+      transform: translateX(8px);
+    }
+
+    .contact-table {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-2);
+      line-height: 2.2;
+      text-transform: uppercase;
+    }
+
+    .contact-table .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .contact-table .row span:first-child {
+      color: var(--gold);
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    footer .colophon em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      text-transform: none;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      font-size: 0.75rem;
+    }
+
+    /* ─── ENTRANCE ANIMATIONS ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.20s; }
+    .d3 { animation-delay: 0.40s; }
+    .d4 { animation-delay: 0.60s; }
+    .d5 { animation-delay: 0.80s; }
+    .d6 { animation-delay: 1.00s; }
+    .d7 { animation-delay: 1.20s; }
+    .d8 { animation-delay: 1.40s; }
+    .d9 { animation-delay: 1.60s; }
+
+    @keyframes reveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* slow letter reveal for name */
+    .hero-name span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(40%);
+      animation: name-up 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-name span:nth-child(1) { animation-delay: 0.30s; }
+    .hero-name span:nth-child(2) { animation-delay: 0.42s; }
+    .hero-name span:nth-child(3) { animation-delay: 0.54s; }
+
+    @keyframes name-up {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .stage { padding: 28px 28px 56px; }
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 64px 0 48px; }
+      .hero-side { padding-bottom: 0; }
+      .interests { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .section { margin-bottom: 80px; }
+      .marquee { margin-left: -28px; margin-right: -28px; }
+      .strip { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .corner { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- background layers -->
+  <div class="bg-mesh"></div>
+  <div class="bg-grid"></div>
+  <svg class="bg-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.92" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1
+                             0 0 0 0 1
+                             0 0 0 0 1
+                             0 0 0 0.55 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+  <div class="bg-vignette"></div>
+
+  <main class="stage">
+    <!-- ─── TOP STRIP ─────────────────────────────────── -->
+    <header class="strip reveal d1">
+      <div class="strip-l">
+        <span class="crest">※ INDEX / 自己紹介</span>
+        <span>VOL. 01 · ED. 2026.05</span>
+      </div>
+      <div class="strip-r">
+        <span><span class="pulse"></span>AVAILABLE</span>
+        <span>SEOUL · KR · KST</span>
+      </div>
+    </header>
+
+    <!-- ─── HERO ──────────────────────────────────────── -->
+    <section class="hero">
+      <span class="corner tl"></span>
+      <span class="corner br"></span>
+
+      <div>
+        <div class="section-tag reveal d2">§ 001 — Profile · 인물</div>
+
+        <h1 class="hero-name" aria-label="홍길동">
+          <span>홍</span><span class="gilo">길</span><span>동</span>
+        </h1>
+
+        <div class="hero-en reveal d4">Hong, Gil&#8209;dong</div>
+
+        <p class="hero-tagline reveal d5">
+          삼육대학교 <strong style="color:var(--gold);">인공지능융합학부</strong>에서
+          <em style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink);">학생이자 연구자</em>,
+          그리고 호기심 많은 한 사람으로 배우고 있습니다.
+        </p>
+      </div>
+
+      <aside class="hero-side reveal d6">
+        <div class="row"><span>NO.</span><span>001 / 001</span></div>
+        <div class="row"><span>YEAR</span><span>2026</span></div>
+        <div class="row"><span>FIELD</span><span>AI · COGSCI</span></div>
+        <div class="row"><span>STATUS</span><span>STUDENT</span></div>
+        <div class="row"><span>LANG</span><span>KO / EN</span></div>
+      </aside>
+    </section>
+
+    <!-- ─── MARQUEE ───────────────────────────────────── -->
+    <div class="marquee reveal d6" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Large Language Models</span><span class="star">✦</span>
+        <span>Multi&#8209;Agent Systems</span><span class="star">✦</span>
+        <span>Cognitive Psychology</span><span class="star">✦</span>
+        <span>Emergence</span><span class="star">✦</span>
+        <span>Reasoning</span><span class="star">✦</span>
+        <span>Attention</span><span class="star">✦</span>
+        <span>Large Language Models</span><span class="star">✦</span>
+        <span>Multi&#8209;Agent Systems</span><span class="star">✦</span>
+        <span>Cognitive Psychology</span><span class="star">✦</span>
+        <span>Emergence</span><span class="star">✦</span>
+        <span>Reasoning</span><span class="star">✦</span>
+        <span>Attention</span><span class="star">✦</span>
+      </div>
+    </div>
+
+    <!-- ─── FOCI ──────────────────────────────────────── -->
+    <section class="section reveal d7">
+      <div class="section-head">
+        <h2>현재의 <em>관심사</em><br/>Current Foci</h2>
+        <div class="section-meta">
+          § 002<br/>
+          <strong>03</strong> ENTRIES<br/>
+          2026 · ACTIVE
+        </div>
+      </div>
+
+      <div class="interests">
+        <article class="interest" data-num="◦ 01">
+          <div class="ko">LLM</div>
+          <div class="en">Large Language Models</div>
+          <p>대규모 언어 모델의 추론, 정렬, 그리고 한계에 대한 학습. 자연어를 통한 인간–기계 협업 방식을 탐색합니다.</p>
+        </article>
+
+        <article class="interest" data-num="◦ 02">
+          <div class="ko">멀티에이전트</div>
+          <div class="en">Multi&#8209;Agent Systems</div>
+          <p>여러 에이전트가 상호작용하며 만들어내는 협력과 경쟁의 패턴. 집합 지능과 창발 현상에 관심이 있습니다.</p>
+        </article>
+
+        <article class="interest" data-num="◦ 03">
+          <div class="ko">인지심리학</div>
+          <div class="en">Cognitive Psychology</div>
+          <p>주의, 기억, 의사결정 등 인간 인지 과정의 구조를 이해하고, 이를 인공지능 설계에 연결하는 작업을 좋아합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────────── -->
+    <section class="section reveal d8">
+      <div class="section-head">
+        <h2><em>연락</em>처<br/>Correspondence</h2>
+        <div class="section-meta">
+          § 003<br/>
+          <strong>DIRECT</strong> CHANNEL<br/>
+          REPLY · ~24H
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <div>
+          <a class="contact-link" href="mailto:example@syusw.ac.kr">
+            <span class="contact-arrow">→</span>example@syusw.ac.kr
+          </a>
+        </div>
+
+        <div class="contact-table">
+          <div class="row"><span>Protocol</span><span>SMTP / DM</span></div>
+          <div class="row"><span>Timezone</span><span>UTC +09:00</span></div>
+          <div class="row"><span>Languages</span><span>KO · EN</span></div>
+          <div class="row"><span>Response</span><span>~24 Hours</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ────────────────────────────────────── -->
+    <footer class="reveal d9">
+      <div>© 2026 · HONG GIL&#8209;DONG · ALL RIGHTS OBSERVED</div>
+      <div class="colophon">SET IN <em>Fraunces</em> · <em>Noto&nbsp;Serif&nbsp;KR</em> · <em>JetBrains&nbsp;Mono</em></div>
+      <div>FILE :: ABOUT.HTML · v2</div>
+    </footer>
+  </main>
+</body>
+</html>
